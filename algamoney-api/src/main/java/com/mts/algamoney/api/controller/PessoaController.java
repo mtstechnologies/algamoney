@@ -17,37 +17,37 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.mts.algamoney.api.model.Categoria;
-import com.mts.algamoney.api.repository.CategoriaRepository;
+import com.mts.algamoney.api.model.Pessoa;
+import com.mts.algamoney.api.repository.PessoaRepository;
 
 @RestController
-@RequestMapping("/categorias")
-public class CategoriaController {
+@RequestMapping("/pessoas")
+public class PessoaController {
 	
 	@Autowired
-	private CategoriaRepository categoriaRepository;
+	private PessoaRepository pessoaRepository;
 
 	@GetMapping
-	public List<Categoria> listar(){
-		return categoriaRepository.findAll();
+	public List<Pessoa> listar(){
+		return pessoaRepository.findAll();
 	}
 	
 	@PostMapping
 	//@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<Categoria> criar(@Valid @RequestBody Categoria categoria, HttpServletResponse response) {
-		Categoria categoriaSalva = categoriaRepository.save(categoria);
+	public ResponseEntity<Pessoa> criar(@Valid @RequestBody Pessoa pessoa, HttpServletResponse response) {
+		Pessoa pessoaSalva = pessoaRepository.save(pessoa);
 		
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{codigo}")
-				.buildAndExpand(categoriaSalva.getCodigo()).toUri();
+				.buildAndExpand(pessoaSalva.getCodigo()).toUri();
 		response.setHeader("Location", uri.toASCIIString());
 		
-		return ResponseEntity.created(uri).body(categoriaSalva);
+		return ResponseEntity.created(uri).body(pessoaSalva);
 	}
-		
+	
 	@GetMapping("/{codigo}")
-	public ResponseEntity<Optional<Categoria>> buscarPeloCodigo(@PathVariable Long codigo) {
-		Optional<Categoria> categoria = categoriaRepository.findById(codigo);
+	public ResponseEntity<Optional<Pessoa>> buscarPeloCodigo(@PathVariable Long codigo) {
+		Optional<Pessoa> pessoa = pessoaRepository.findById(codigo);
 		
-		return categoria != null ? ResponseEntity.ok(categoria) : ResponseEntity.notFound().build();
+		return pessoa != null ? ResponseEntity.ok(pessoa) : ResponseEntity.notFound().build();
 	}
 }
