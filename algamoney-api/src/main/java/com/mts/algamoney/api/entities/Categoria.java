@@ -1,26 +1,26 @@
-package com.mts.algamoney.api.model;
+package com.mts.algamoney.api.entities;
 
-import javax.persistence.Embedded;
+import java.util.Objects;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "pessoa")
-public class Pessoa {
+@Table(name = "categoria")
+public class Categoria {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
 	
 	@NotNull
+	@Size(min = 3, max = 25)
 	private String nome;
-	
-	@Embedded
-	private Endereco endereco;
 
 	public Long getCodigo() {
 		return codigo;
@@ -38,11 +38,22 @@ public class Pessoa {
 		this.nome = nome;
 	}
 
-	public Endereco getEndereco() {
-		return endereco;
+	@Override
+	public int hashCode() {
+		return Objects.hash(codigo);
 	}
 
-	public void setEndereco(Endereco endereco) {
-		this.endereco = endereco;
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Categoria other = (Categoria) obj;
+		return Objects.equals(codigo, other.codigo);
 	}
+
+	
 }

@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.mts.algamoney.api.entities.Pessoa;
 import com.mts.algamoney.api.event.RecursoCriadoEvent;
-import com.mts.algamoney.api.model.Pessoa;
 import com.mts.algamoney.api.repository.PessoaRepository;
 
 @RestController
