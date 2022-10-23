@@ -1,0 +1,1 @@
+ALTER TABLE pessoa ADD ativo BIT NOT NULL;
